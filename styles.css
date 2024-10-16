@@ -1,1 +1,138 @@
+body {
+    font-family: 'Roboto', sans-serif; /* Font moderno */
+    background-color: #0e1e4a; /* Colore di sfondo simile alla Champions League */
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra orizzontalmente */
+    height: 100vh; /* Occupa l'altezza dell'intera finestra */
+}
 
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    text-align: center; /* Centra tutto il contenuto */
+    border-radius: 15px; /* Angoli arrotondati per il contenitore */
+    background-color: rgba(255, 255, 255, 0.1); /* Sfondo leggermente trasparente */
+}
+
+h1 {
+    color: #d4af37; /* Colore del titolo */
+    margin-bottom: 20px; /* Distanza sotto il titolo */
+}
+
+.input-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centra gli input */
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin: 10px; /* Maggiore distanza tra gli input */
+    flex: 1 1 45%; /* Due input per riga */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transizione per gli input */
+}
+
+input:focus {
+    border-color: #d4af37; /* Colore del bordo al focus */
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.5); /* Ombra al focus */
+}
+
+button {
+    padding: 10px 15px;
+    background-color: rgba(212, 175, 55, 0.8); /* Pulsante giallo trasparente */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Transizione per il pulsante */
+    flex-basis: 100%; /* Pulsante occupa l'intera larghezza */
+    margin-top: 10px; /* Distanza sopra il pulsante */
+}
+
+button:hover {
+    background-color: rgba(212, 175, 55, 1); /* Colore al passaggio del mouse */
+    transform: scale(1.05); /* Effetto di ingrandimento al passaggio del mouse */
+}
+
+.results, .standings {
+    margin-top: 20px;
+    padding: 20px; /* Spazio interno per il blocco dei risultati */
+    background-color: rgba(255, 255, 255, 0.1); /* Sfondo leggermente trasparente */
+    border-radius: 15px; /* Angoli arrotondati */
+}
+
+h2 {
+    margin-bottom: 10px; /* Distanza sopra i titoli delle sezioni */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center; /* Centra il contenuto delle celle */
+    border: 1px solid #333;
+    border-radius: 8px; /* Angoli arrotondati per le celle */
+    transition: background-color 0.3s; /* Transizione per le celle */
+}
+
+td:nth-child(2) {
+    text-align: center; /* Risultato centrato */
+}
+
+th {
+    background-color: rgba(212, 175, 55, 0.8); /* Colore di sfondo per l'intestazione */
+}
+
+tr:nth-child(even) {
+    background-color: #1a2e5a; /* Colore di sfondo per righe pari */
+}
+
+tr:hover {
+    background-color: #333; /* Colore di sfondo al passaggio del mouse */
+}
+
+button.edit, button.delete {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: rgba(33, 150, 243, 0.8); /* Colore del pulsante di modifica */
+    transition: background-color 0.3s; /* Transizione per il pulsante */
+}
+
+button.edit:hover {
+    background-color: rgba(33, 150, 243, 1); /* Colore al passaggio del mouse per edit */
+}
+
+button.delete {
+    background-color: rgba(244, 67, 54, 0.8); /* Colore del pulsante di eliminazione */
+    transition: background-color 0.3s; /* Transizione per il pulsante */
+}
+
+button.delete:hover {
+    background-color: rgba(244, 67, 54, 1); /* Colore al passaggio del mouse per delete */
+}
+
+/* Media Queries per la Responsività */
+@media (max-width: 600px) {
+    .input-section {
+        flex-direction: column;
+    }
+
+    input {
+        flex: 1 1 100%; /* Gli input occupano l'intera larghezza */
+    }
+
+    button {
+        flex-basis: 100%;
+    }
+}
