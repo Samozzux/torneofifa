@@ -4,282 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Risultati Partite FIFA</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 800px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .container:hover {
-            transform: scale(1.02);
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        h1 {
-            text-align: center;
-            color: #007BFF;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #007BFF;
-            color: white;
-        }
-
-        form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        input[type="text"], input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: border-color 0.3s ease;
-        }
-
-        input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #007BFF;
-        }
-
-        button {
-            grid-column: span 2;
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        .action-btn {
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-            border: none;
-        }
-
-        .edit-btn {
-            background-color: #ffc107;
-        }
-
-        .delete-btn {
-            background-color: #dc3545;
-        }
-
-        .message {
-            text-align: center;
-            color: #28a745;
-            font-weight: bold;
-            margin-bottom: 10px;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .message.visible {
-            opacity: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <div class="container">
         <h1>Risultati Partite FIFA</h1>
-
-        <!-- Messaggio di conferma -->
-        <div class="message" id="successMessage">Risultato aggiunto con successo!</div>
-
-        <!-- Tabella per visualizzare i risultati -->
-        <table id="resultsTable">
-            <thead>
-                <tr>
-                    <th>Squadra 1</th>
-                    <th>Gol Squadra 1</th>
-                    <th>Gol Squadra 2</th>
-                    <th>Squadra 2</th>
-                    <th>Azioni</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- I risultati saranno inseriti qui dinamicamente -->
-            </tbody>
-        </table>
-
-        <!-- Form per inserire nuovi risultati -->
-        <form id="resultForm">
-            <input type="text" id="team1" placeholder="Nome Squadra 1" required>
-            <input type="text" id="team2" placeholder="Nome Squadra 2" required>
-            <input type="number" id="goalsTeam1" placeholder="Gol Squadra 1" required>
-            <input type="number" id="goalsTeam2" placeholder="Gol Squadra 2" required>
-            <button type="submit">Aggiungi Risultato</button>
-        </form>
+        <div class="input-section">
+            <input type="text" id="teamA" placeholder="Nome Squadra A">
+            <input type="text" id="teamB" placeholder="Nome Squadra B">
+            <input type="number" id="scoreA" placeholder="Gol Squadra A">
+            <input type="number" id="scoreB" placeholder="Gol Squadra B">
+            <button id="addButton">Aggiungi Risultato</button>
+        </div>
+        <div class="results">
+            <h2>Risultati</h2>
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Squadra A</th>
+                        <th>Gol</th>
+                        <th>Gol</th>
+                        <th>Squadra B</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                </tbody>
+            </table>
+        </div>
+        <div class="standings">
+            <h2>Classifica</h2>
+            <table id="standingsTable">
+                <thead>
+                    <tr>
+                        <th>Squadra</th>
+                        <th>Vittorie</th>
+                        <th>Gol Fatti</th>
+                        <th>Gol Subiti</th>
+                        <th>Diff. Reti</th>
+                    </tr>
+                </thead>
+                <tbody id="standingsBody">
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <script>
-        // Riferimenti agli elementi del DOM
-        const form = document.getElementById('resultForm');
-        const resultsTable = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
-        const successMessage = document.getElementById('successMessage');
-
-        // Funzione per mostrare il messaggio di successo
-        function showSuccessMessage() {
-            successMessage.classList.add('visible');
-            setTimeout(() => {
-                successMessage.classList.remove('visible');
-            }, 2000);
-        }
-
-        // Funzione per aggiungere un risultato alla tabella
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const team1 = document.getElementById('team1').value;
-            const team2 = document.getElementById('team2').value;
-            const goalsTeam1 = document.getElementById('goalsTeam1').value;
-            const goalsTeam2 = document.getElementById('goalsTeam2').value;
-
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td contenteditable="false">${team1}</td>
-                <td contenteditable="false">${goalsTeam1}</td>
-                <td contenteditable="false">${goalsTeam2}</td>
-                <td contenteditable="false">${team2}</td>
-                <td>
-                    <button class="action-btn edit-btn" onclick="editRow(this)">Modifica</button>
-                    <button class="action-btn delete-btn" onclick="deleteRow(this)">Elimina</button>
-                </td>
-            `;
-            resultsTable.appendChild(newRow);
-
-            // Salva i dati nel localStorage
-            saveResults();
-
-            // Mostra messaggio di successo
-            showSuccessMessage();
-
-            // Resetta i campi del form
-            form.reset();
-        });
-
-        // Funzione per salvare i risultati nel localStorage
-        function saveResults() {
-            const rows = resultsTable.getElementsByTagName('tr');
-            const results = [];
-
-            for (let i = 0; i < rows.length; i++) {
-                const cols = rows[i].getElementsByTagName('td');
-                if (cols.length > 0) {
-                    results.push({
-                        team1: cols[0].innerText,
-                        goalsTeam1: cols[1].innerText,
-                        goalsTeam2: cols[2].innerText,
-                        team2: cols[3].innerText
-                    });
-                }
-            }
-
-            localStorage.setItem('matchResults', JSON.stringify(results));
-        }
-
-        // Funzione per caricare i risultati dal localStorage
-        function loadResults() {
-            const results = JSON.parse(localStorage.getItem('matchResults')) || [];
-
-            for (let i = 0; i < results.length; i++) {
-                const result = results[i];
-                const newRow = document.createElement('tr');
-
-                newRow.innerHTML = `
-                    <td contenteditable="false">${result.team1}</td>
-                    <td contenteditable="false">${result.goalsTeam1}</td>
-                    <td contenteditable="false">${result.goalsTeam2}</td>
-                    <td contenteditable="false">${result.team2}</td>
-                    <td>
-                        <button class="action-btn edit-btn" onclick="editRow(this)">Modifica</button>
-                        <button class="action-btn delete-btn" onclick="deleteRow(this)">Elimina</button>
-                    </td>
-                `;
-
-                resultsTable.appendChild(newRow);
-            }
-        }
-
-        // Funzione per modificare una riga
-        function editRow(button) {
-            const row = button.parentElement.parentElement;
-            const isEditable = row.cells[0].contentEditable === "true";
-
-            // Se la riga è già modificabile, salviamo le modifiche
-            if (isEditable) {
-                button.textContent = "Modifica";
-                for (let i = 0; i < 4; i++) {
-                    row.cells[i].contentEditable = "false";
-                }
-
-                // Salva i risultati aggiornati nel localStorage
-                saveResults();
-            } else {
-                // Rendiamo la riga modificabile
-                button.textContent = "Salva";
-                for (let i = 0; i < 4; i++) {
-                    row.cells[i].contentEditable = "true";
-                }
-            }
-        }
-
-        // Funzione per eliminare una riga
-        function deleteRow(button) {
-            const row = button.parentElement.parentElement;
-            row.remove();
-            saveResults(); // Salva dopo l'eliminazione
-        }
-
-        // Carica i risultati quando la pagina viene caricata
-        window.onload = loadResults;
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
+
