@@ -3,48 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Risultati Partite FIFA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <title>Risultati Partite FIFA</title>
 </head>
 <body>
     <div class="container">
-        <h1>Risultati Partite FIFA</h1>
+        <h1>Torneo FIFA: Matteo vs Samuele</h1>
+
         <div class="input-section">
-            <input type="text" id="teamA" placeholder="Nome Squadra A">
-            <input type="text" id="teamB" placeholder="Nome Squadra B">
-            <input type="number" id="scoreA" placeholder="Gol Squadra A">
-            <input type="number" id="scoreB" placeholder="Gol Squadra B">
-            <button id="addButton">Aggiungi Risultato</button>
+            <input type="text" id="teamA" placeholder="Squadra Matteo">
+            <input type="text" id="teamB" placeholder="Squadra Samuele">
+            <input type="number" id="scoreA" placeholder="Gol Squadra Matteo" min="0">
+            <input type="number" id="scoreB" placeholder="Gol Squadra Samuele" min="0">
+            <button onclick="addResult()">Aggiungi Risultato</button>
         </div>
+
         <div class="results">
-            <h2>Risultati</h2>
-            <table id="resultsTable">
+            <h2>Risultati delle Partite</h2>
+            <table>
                 <thead>
                     <tr>
-                        <th>Squadra A</th>
-                        <th>Gol</th>
-                        <th>Gol</th>
-                        <th>Squadra B</th>
+                        <th>Squadra Matteo</th>
+                        <th>Risultato</th>
+                        <th>Squadra Samuele</th>
                         <th>Azioni</th>
                     </tr>
                 </thead>
                 <tbody id="resultsBody">
+                    <!-- I risultati delle partite appariranno qui -->
                 </tbody>
             </table>
         </div>
+
         <div class="standings">
             <h2>Classifica</h2>
-            <table id="standingsTable">
+            <table>
                 <thead>
                     <tr>
-                        <th>Squadra</th>
+                        <th>Giocatore</th>
                         <th>Vittorie</th>
                         <th>Gol Fatti</th>
                         <th>Gol Subiti</th>
-                        <th>Diff. Reti</th>
+                        <th>Differenza Reti</th>
                     </tr>
                 </thead>
                 <tbody id="standingsBody">
+                    <!-- La classifica apparirà qui -->
                 </tbody>
             </table>
         </div>
@@ -53,4 +58,5 @@
     <script src="script.js"></script>
 </body>
 </html>
-
+</body>
+</html>
